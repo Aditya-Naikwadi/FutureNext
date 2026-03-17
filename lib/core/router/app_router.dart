@@ -1,24 +1,30 @@
 import 'package:go_router/go_router.dart';
-import 'package:futurenext/presentation/screens/splash_screen.dart';
-import 'package:futurenext/presentation/screens/onboarding_screen.dart';
-import 'package:futurenext/presentation/screens/login_screen.dart';
-import 'package:futurenext/presentation/screens/register_screen.dart';
-import 'package:futurenext/presentation/screens/dashboard_screen.dart';
-import 'package:futurenext/presentation/screens/quiz_screen.dart';
-import 'package:futurenext/presentation/screens/quiz_result_screen.dart';
-import 'package:futurenext/presentation/screens/chat_screen.dart';
-import 'package:futurenext/presentation/screens/career_detail_screen.dart';
-import 'package:futurenext/presentation/screens/profile_screen.dart';
-import 'package:futurenext/data/models/career_model.dart';
+import 'package:futurenext/data/models/assessment_model.dart';
+import 'package:futurenext/features/onboard/presentation/screens/splash_screen.dart';
+import 'package:futurenext/features/onboard/presentation/screens/onboarding_screen.dart';
+import 'package:futurenext/features/auth/presentation/screens/login_screen.dart';
+import 'package:futurenext/features/auth/presentation/screens/register_screen.dart';
+import 'package:futurenext/features/dashboard/presentation/screens/dashboard_screen.dart';
+import 'package:futurenext/features/quiz/presentation/screens/quiz_screen.dart';
+import 'package:futurenext/features/quiz/presentation/screens/quiz_result_screen.dart';
+import 'package:futurenext/features/chat/presentation/screens/chat_screen.dart';
+import 'package:futurenext/features/careers/presentation/screens/career_detail_screen.dart';
+import 'package:futurenext/features/careers/presentation/screens/category_careers_screen.dart';
+import 'package:futurenext/features/profile/presentation/screens/profile_screen.dart';
+
+import 'package:futurenext/features/careers/presentation/screens/categories_screen.dart';
 
 class AppRouter {
   static final router = GoRouter(
-    initialLocation: '/splash',
+    initialLocation: '/',
     routes: [
       GoRoute(
-        path: '/splash',
-        name: 'splash',
+        path: '/',
         builder: (context, state) => const SplashScreen(),
+      ),
+      GoRoute(
+        path: '/categories',
+        builder: (context, state) => const CategoriesScreen(),
       ),
       GoRoute(
         path: '/onboarding',
@@ -51,10 +57,10 @@ class AppRouter {
         builder: (context, state) => const QuizScreen(),
       ),
       GoRoute(
-        path: '/quiz-results',
-        name: 'quiz_results',
+        path: '/quiz-result',
+        name: 'quiz_result',
         builder: (context, state) {
-          final results = state.extra as List<MapEntry<CareerCategory, double>>;
+          final results = state.extra as AssessmentResults;
           return QuizResultScreen(results: results);
         },
       ),
@@ -62,6 +68,14 @@ class AppRouter {
         path: '/chat',
         name: 'chat',
         builder: (context, state) => const ChatScreen(),
+      ),
+      GoRoute(
+        path: '/category/:categoryId',
+        name: 'category_details',
+        builder: (context, state) {
+          final categoryId = state.pathParameters['categoryId']!;
+          return CategoryCareersScreen(categoryId: categoryId);
+        },
       ),
       GoRoute(
         path: '/career/:categoryId/:subCareerId',

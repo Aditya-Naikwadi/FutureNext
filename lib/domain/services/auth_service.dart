@@ -50,4 +50,31 @@ class AuthService {
     final doc = await _firestore.collection('users').doc(uid).get();
     return doc.data();
   }
+  
+  Future<void> updateUserProfile({
+    required String uid,
+    required String name,
+    required String school,
+    required String grade,
+  }) async {
+    await _firestore.collection('users').doc(uid).update({
+      'name': name,
+      'school': school,
+      'grade': grade,
+      'updatedAt': FieldValue.serverTimestamp(),
+    });
+    
+    // Also update FirebaseAuth display name
+    await _auth.currentUser?.updateDisplayName(name);
+  }
+
+  Future<void> deleteAccount() async {
+    final user = _auth.currentUser;
+    if (user != null) {
+      // Delete from Firestore first
+      await _firestore.collection('users').doc(user.uid).delete();
+      // Delete from FirebaseAuth
+      await user.delete();
+    }
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:futurenext/core/constants/app_strings.dart';
 
 class ChatService {
   final String apiKey;
@@ -7,7 +8,7 @@ class ChatService {
 
   ChatService({required this.apiKey}) {
     _model = GenerativeModel(
-      model: 'gemini-1.5-flash',
+      model: 'gemini-2.0-flash',
       apiKey: apiKey,
       generationConfig: GenerationConfig(
         temperature: 0.7,
@@ -16,7 +17,7 @@ class ChatService {
         maxOutputTokens: 1024,
       ),
       systemInstruction: Content.system('''
-You are a friendly and knowledgeable career counselor named "FutureNext Guide". 
+You are a friendly and knowledgeable career counselor named "${AppStrings.appName} Guide". 
 Your goal is to help Indian students who have just completed their 10th grade.
 Provide advice on:
 - Career options (Science, Commerce, Arts, etc.)

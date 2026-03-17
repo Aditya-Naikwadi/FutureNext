@@ -1,29 +1,30 @@
 import 'package:equatable/equatable.dart';
+import 'package:futurenext/data/models/career_model.dart';
 
-class QuizQuestion extends Equatable {
+class Question extends Equatable {
   final String id;
-  final String question;
+  final String text;
   final List<QuizOption> options;
 
-  const QuizQuestion({
+  const Question({
     required this.id,
-    required this.question,
+    required this.text,
     required this.options,
   });
 
   @override
-  List<Object?> get props => [id, question, options];
+  List<Object?> get props => [id, text, options];
 }
 
 class QuizOption extends Equatable {
   final String text;
-  final Map<String, int> careerWeights; // e.g., {'tech': 3, 'arts': 1}
+  final Map<CareerCategoryType, double> scores;
 
   const QuizOption({
     required this.text,
-    required this.careerWeights,
+    required this.scores,
   });
 
   @override
-  List<Object?> get props => [text, careerWeights];
+  List<Object?> get props => [text, scores];
 }

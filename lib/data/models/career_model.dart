@@ -1,7 +1,32 @@
 import 'package:equatable/equatable.dart';
 
+enum CareerCategoryType {
+  technology,
+  science,
+  medicine,
+  arts,
+  commerce,
+  law,
+  education,
+  media,
+  sports,
+  hospitality,
+  agriculture,
+  design,
+  socialWork,
+  aviation,
+  maritime,
+  defense,
+  performingArts,
+  architecture,
+  environmentalScience,
+  linguistics,
+  psychology,
+}
+
 class CareerCategory extends Equatable {
   final String id;
+  final CareerCategoryType type;
   final String title;
   final String icon;
   final String description;
@@ -9,6 +34,7 @@ class CareerCategory extends Equatable {
 
   const CareerCategory({
     required this.id,
+    required this.type,
     required this.title,
     required this.icon,
     required this.description,
@@ -16,7 +42,7 @@ class CareerCategory extends Equatable {
   });
 
   @override
-  List<Object?> get props => [id, title, icon, description, subCareers];
+  List<Object?> get props => [id, type, title, icon, description, subCareers];
 }
 
 class SubCareer extends Equatable {

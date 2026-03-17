@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../data/models/career_model.dart';
-import '../../data/static/career_data.dart';
+import 'package:futurenext/data/models/career_model.dart';
+import 'package:futurenext/data/local/career_data.dart';
 
 class CareerRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
